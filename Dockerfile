@@ -2,6 +2,7 @@ FROM golang:1.16.4-alpine3.13
 
 RUN apk add --no-cache --update alpine-sdk bash
 
+ENV URL_REDIRECT_CCP=localhost:5000
 ENV GO111MODULE=on
 
 WORKDIR /app

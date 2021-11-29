@@ -7,8 +7,8 @@ global:
 replicaCount: 1
 
 image:
-  repository: mintel/dex-k8s-authenticator
-  tag: 1.4.0
+  repository: ruber19/dex-k8s-authenticator-ccp
+  tag: 1.0
   pullPolicy: Always
 
 imagePullSecrets: {}
@@ -21,15 +21,45 @@ dexK8sAuthenticator:
   #tlsCert: /path/to/dex-client.crt
   #tlsKey: /path/to/dex-client.key
   clusters:
-  - name: my-cluster
-    short_description: "My Cluster"
-    description: "Example Cluster Long Description..."
-    client_secret: pUBnBOY80SnXgjibTYM9ZWNzY2xreNGQok
-    issuer: https://dex.example.com
-    k8s_master_uri: https://my-cluster.example.com
-    client_id: my-cluster
-    redirect_uri: https://login.example.com/callback/my-cluster
-    k8s_ca_uri: https://url-to-your-ca.crt
+    - name: ccp-dev
+      short_description: "K8s Example"
+      description: "K8s Example"
+      issuer: https://dex.rootbean.xyz
+      client_id: dex-k8s-authenticator-id
+      client_secret: dex-k8s-authenticator-key
+      redirect_uri: https://login.rootbean.xyz/callback
+      k8s_master_uri: https://rootbean.xyz
+      k8s_ca_pem: |
+        -----BEGIN CERTIFICATE-----
+        MIIFJjCCBA6gAwIBAgISBB5m3vCrETFQBeO8jx2bbnvUMA0GCSqGSIb3DQEBCwUA
+        MDIxCzAJBgNVBAYTAlVTMRYwFAYDVQQKEw1MZXQncyBFbmNyeXB0MQswCQYDVQQD
+        EwJSMzAeFw0yMTExMTYwNTM5MTVaFw0yMjAyMTQwNTM5MTRaMBsxGTAXBgNVBAMT
+        EGRleC5yb290YmVhbi54eXowggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIB
+        AQDE65qFRUNVnxqBWpAr391zvFG3vpNFvOq7o9LDgD1Up6J3QB/dX9OGD4mUVTF6
+        2yTf9aX8U3/hgbZlzjTChcTsUwF1oWqS9qPs9s/7vyKH6CAdtEUr+tPg4DTy7vbj
+        NHIh1AxXKyrQlr4BmQMrPyau6pVzvfOeM4MIq8+MEeja/0r0L0zP4ebBn5zK7DVD
+        p8wXQIr77S7+lVZWp4mr+ka8vb1heoiqA2yPu5c8S15pdaOMcWwjgHkNhQu62ckr
+        m5/YywfKy0JShaCbepnNWkBV2DlLMsCkMYNJcuV5TKaOnfG2gJRgZ23jrbqoTLqz
+        rhK+yS73QjuhK3/YlewjxOx7AgMBAAGjggJLMIICRzAOBgNVHQ8BAf8EBAMCBaAw
+        HQYDVR0lBBYwFAYIKwYBBQUHAwEGCCsGAQUFBwMCMAwGA1UdEwEB/wQCMAAwHQYD
+        VR0OBBYEFOZF150SaIs+sr8kpgZ4++UneFfDMB8GA1UdIwQYMBaAFBQusxe3WFbL
+        rlAJQOYfr52LFMLGMFUGCCsGAQUFBwEBBEkwRzAhBggrBgEFBQcwAYYVaHR0cDov
+        L3IzLm8ubGVuY3Iub3JnMCIGCCsGAQUFBzAChhZodHRwOi8vcjMuaS5sZW5jci5v
+        cmcvMBsGA1UdEQQUMBKCEGRleC5yb290YmVhbi54eXowTAYDVR0gBEUwQzAIBgZn
+        gQwBAgEwNwYLKwYBBAGC3xMBAQEwKDAmBggrBgEFBQcCARYaaHR0cDovL2Nwcy5s
+        ZXRzZW5jcnlwdC5vcmcwggEEBgorBgEEAdZ5AgQCBIH1BIHyAPAAdQBGpVXrdfqR
+        IDC1oolp9PN9ESxBdL79SbiFq/L8cP5tRwAAAX0neJ3uAAAEAwBGMEQCIA8SB1ZC
+        wgF3M2A8wZY6n+awzLx14J3EvEC+pqfzVoI3AiBkJ51SXqEmga6Er/YP3Kw+Ov24
+        eb+DyTJaWD8jmzeWRgB3AG9Tdqwx8DEZ2JkApFEV/3cVHBHZAsEAKQaNsgiaN9kT
+        AAABfSd4oPIAAAQDAEgwRgIhAP+RerqJ5ElMzDeTiviQnnyaR7VzXM68oO+Afx6b
+        EJgZAiEAmlyCk3mrzUxPkJuXZjEzfEkXK5agX51jS6DATMp+1uwwDQYJKoZIhvcN
+        AQELBQADggEBAFfV16BGp3QcBx7wQgOzMSjbAzOvGmbJcTH90Adw1WocTcIaOiso
+        lMmLdL1EJU03rnaf1y+sP65JAHybsD1P/DeDUpk/jhoU89X3mxpmS0BMx9+79aMw
+        ub2Mo8GxKxYwwqLk9jSe7Il6iwI1aKN6uBHobkxDWlIzY6HvkThM/rlVmPjog6s6
+        cKhHeZsTZ4LIlq+5AyQny+D5RGipwtH89ylY92HVBOFMO/WT9QLAdtRYGVqH57at
+        VOOKgQ2Ig32xitVMbpgTXnvzsyXcT3Mdw7pzgOxzwzmEjIk6TR3nAfLPRa9ttOuj
+        vPZ8JTAj7GSdlqogagkzZ5Cln+kBVM37l4Y=
+        -----END CERTIFICATE-----
 
 service:
   annotations: {}
@@ -42,17 +72,20 @@ service:
   #   nodePort: <port-number>
 
 ingress:
-  enabled: false
-  annotations: {}
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
-  path: /
+  enabled: true
+  className: nginx
+  annotations:
+    kubernetes.io/tls-acme: "true"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
   hosts:
-    - chart-example.local
-  tls: []
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
+    - host: login.rootbean.xyz
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls:
+    - secretName: dex-k8s-authenticator-tls
+      hosts:
+        - login.rootbean.xyz
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
