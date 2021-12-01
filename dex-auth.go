@@ -60,8 +60,6 @@ func (cluster *Cluster) handleCallback(w http.ResponseWriter, r *http.Request) {
 
 	log.Printf("Handling callback for: %s", cluster.Name)
 
-	log.Println("RUBER: ", cluster.Client)
-
 	ctx := oidc.ClientContext(r.Context(), cluster.Client)
 	oauth2Config := cluster.oauth2Config()
 	switch r.Method {

@@ -58,7 +58,7 @@ func (cluster *Cluster) renderToken(w http.ResponseWriter,
 	claims []byte,
 	r *http.Request) {
 
-	log.Println("RUBER AQUI")
+	log.Println("RUBER DEX")
 	var data map[string]interface{}
 	err := json.Unmarshal(claims, &data)
 	if err != nil {
@@ -95,12 +95,9 @@ func (cluster *Cluster) renderToken(w http.ResponseWriter,
 
 	tokenNew := token_data.IDToken
 
-	log.Println("TOKEN: ", tokenNew)
-
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
-	w.Header().Set("Authorization", tokenNew)
 
-	http.Redirect(w, r, os.Getenv("URL_REDIRECT_CCP")+"/token="+tokenNew, http.StatusMovedPermanently)
+	http.Redirect(w, r, os.Getenv("URL_REDIRECT_CCP")+"?token="+tokenNew, http.StatusMovedPermanently)
 
 	/*
 		if err := templates.ExecuteTemplate(w, "kubeconfig.html", token_data); err != nil {
