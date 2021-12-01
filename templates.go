@@ -95,6 +95,8 @@ func (cluster *Cluster) renderToken(w http.ResponseWriter,
 
 	tokenNew := token_data.IDToken
 
+	log.Println("TOKEN: ", tokenNew)
+
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 	w.Header().Set("Authorization", tokenNew)
 
