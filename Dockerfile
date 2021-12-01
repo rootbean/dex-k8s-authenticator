@@ -26,7 +26,7 @@ FROM alpine:3.13.5
 RUN apk add --update ca-certificates openssl curl tini
 
 RUN mkdir -p /app/bin
-COPY --from=0 /app/bin/dex-k8s-authenticator /app/bin/
+COPY --from=0 /app/bin/dex-k8s-authenticator-ccp /app/bin/
 COPY --from=0 /app/html /app/html
 COPY --from=0 /app/templates /app/templates
 

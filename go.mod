@@ -1,4 +1,4 @@
-module github.com/mintel/dex-k8s-authenticator
+module github.com/rootbean/dex-k8s-authenticator-ccp
 
 go 1.16
 
