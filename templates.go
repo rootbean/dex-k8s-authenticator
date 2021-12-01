@@ -8,6 +8,7 @@ import (
 	"html/template"
 	"log"
 	"net/http"
+	"os"
 	"strings"
 )
 
@@ -54,7 +55,8 @@ func (cluster *Cluster) renderToken(w http.ResponseWriter,
 	logoURI string,
 	webPathPrefix string,
 	kubectlVersion string,
-	claims []byte) {
+	claims []byte,
+	r *http.Request) {
 
 	log.Println("RUBER AQUI")
 	var data map[string]interface{}
@@ -91,10 +93,19 @@ func (cluster *Cluster) renderToken(w http.ResponseWriter,
 		Namespace:         cluster.Namespace,
 		KubectlVersion:    kubectlVersion}
 
-	if err := templates.ExecuteTemplate(w, "kubeconfig.html", token_data); err != nil {
-		log.Println(err)
-		http.Error(w, http.StatusText(500), 500)
-	}
+	tokenNew := token_data.IDToken
+
+	w.Header().Set("Content-Type", "application/json; charset=utf-8")
+	w.Header().Set("Authorization", tokenNew)
+
+	http.Redirect(w, r, os.Getenv("URL_REDIRECT_CCP")+"/token="+tokenNew, http.StatusMovedPermanently)
+
+	/*
+		if err := templates.ExecuteTemplate(w, "kubeconfig.html", token_data); err != nil {
+			log.Println(err)
+			http.Error(w, http.StatusText(500), 500)
+		}
+	*/
 }
 
 // renderHTMLError renders an HTML page that presents an HTTP error.

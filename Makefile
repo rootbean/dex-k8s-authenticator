@@ -1,6 +1,6 @@
 GOBIN=$(shell pwd)/bin
 GOFILES=$(wildcard *.go)
-GONAME=dex-k8s-authenticator
+GONAME=dex-k8s-authenticator-ccp
 TAG=latest
 
 all: build 
