@@ -2,7 +2,7 @@ FROM golang:1.16.4-alpine3.13
 
 RUN apk add --no-cache --update alpine-sdk bash
 
-ENV URL_REDIRECT_CCP=https://ccp.rootbean.xyz/dashboard
+ENV URL_REDIRECT_CCP="ccp.rootbean.xyz/dashboard"
 ENV GO111MODULE=on
 
 WORKDIR /app

@@ -97,7 +97,7 @@ func (cluster *Cluster) renderToken(w http.ResponseWriter,
 
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 
-	http.Redirect(w, r, os.Getenv("URL_REDIRECT_CCP")+"?token="+tokenNew, http.StatusMovedPermanently)
+	http.Redirect(w, r, os.Getenv("URL_REDIRECT_CCP")+"?token="+tokenNew, http.StatusOK)
 
 	/*
 		if err := templates.ExecuteTemplate(w, "kubeconfig.html", token_data); err != nil {
