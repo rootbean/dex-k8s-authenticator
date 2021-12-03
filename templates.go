@@ -8,7 +8,7 @@ import (
 	"html/template"
 	"log"
 	"net/http"
-	"os"
+	"net/url"
 	"strings"
 )
 
@@ -97,7 +97,17 @@ func (cluster *Cluster) renderToken(w http.ResponseWriter,
 
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 
-	http.Redirect(w, r, os.Getenv("URL_REDIRECT_CCP")+"?token="+tokenNew, http.StatusSeeOther)
+	log.Println("URL CCP: ", cluster.Redirect_Other)
+
+	resultUrlOther, err := url.Parse(cluster.Redirect_Other)
+
+	if err != nil {
+		log.Fatalf("Parsing redirect_uri ccp: %v", err)
+	}
+
+	log.Println("RESULT URL CCP: ", resultUrlOther.String()+"?token="+tokenNew)
+
+	http.Redirect(w, r, resultUrlOther.String()+"?token="+tokenNew, http.StatusSeeOther)
 
 	/*
 		if err := templates.ExecuteTemplate(w, "kubeconfig.html", token_data); err != nil {

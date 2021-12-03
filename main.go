@@ -78,6 +78,7 @@ type Cluster struct {
 	OfflineAsScope bool
 	Client         *http.Client
 	Redirect_URI   string
+	Redirect_Other string
 	Config         Config
 }
 

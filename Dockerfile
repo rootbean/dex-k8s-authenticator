@@ -2,7 +2,6 @@ FROM golang:1.16.4-alpine3.13
 
 RUN apk add --no-cache --update alpine-sdk bash
 
-ENV URL_REDIRECT_CCP="ccp.rootbean.xyz/dashboard"
 ENV GO111MODULE=on
 
 WORKDIR /app
@@ -18,11 +17,6 @@ RUN make build
 
 FROM alpine:3.13.5
 
-# Dex connectors, such as GitHub and Google logins require root certificates.
-# Proper installations should manage those certificates, but it's a bad user
-# experience when this doesn't work out of the box.
-#
-# OpenSSL is required so wget can query HTTPS endpoints for health checking.
 RUN apk add --update ca-certificates openssl curl tini
 
 RUN mkdir -p /app/bin
